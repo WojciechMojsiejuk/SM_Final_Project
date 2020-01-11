@@ -35,10 +35,16 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout llBottom;
 
     int currentImageType = Imgproc.COLOR_RGB2GRAY;
+    boolean tumorDetectionFilter = false;
 
     ImageCapture imageCapture;
     ImageAnalysis imageAnalysis;
@@ -206,7 +213,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Mat mat = new Mat();
                         Utils.bitmapToMat(bitmap, mat);
 
-                        Imgproc.cvtColor(mat, mat, currentImageType);
+
+
+                        //Implement filters here
+
+                        if(tumorDetectionFilter)
+                        {
+                            // Region of interest
+
+                            Mat roi = new Mat();
+                            Imgproc.cvtColor(mat, roi, Imgproc.COLOR_RGB2GRAY );
+
+                            //Kernel declaration
+
+                            Mat kernel = new Mat(5, 5, CvType.CV_8U, Scalar.all(1));
+                            Imgproc.morphologyEx(roi, roi, Imgproc.MORPH_CLOSE, kernel);
+                            Imgproc.threshold(roi, roi, 127, 255, Imgproc.THRESH_BINARY);
+
+                            //Tumor mask
+                            Mat tm_mask = new Mat();
+                            Core.bitwise_not(mat, tm_mask, roi);
+                            List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
+                            Mat hierarchy = new Mat();
+                            Scalar color = new Scalar(0, 255, 255);
+
+                            Imgproc.cvtColor(tm_mask, tm_mask, Imgproc.COLOR_RGB2GRAY);
+                            Imgproc.findContours(tm_mask, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+                            Imgproc.drawContours(mat, contours, -1, color, 3);
+
+                        }
+                        else
+                        {
+                            Imgproc.cvtColor(mat, mat, currentImageType);
+                        }
+
                         Utils.matToBitmap(mat, bitmap);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -323,6 +363,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 currentImageType = Imgproc.COLOR_RGB2Lab;
                 startCamera();
                 return true;
+            case R.id.tumor_detection:
+                tumorDetectionFilter = !tumorDetectionFilter;
+                startCamera();
+                return true;
+
         }
 
         return super.onOptionsItemSelected(item);
