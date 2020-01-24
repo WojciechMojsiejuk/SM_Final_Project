@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="rejectedRed">#FF0000</color>
-    <color name="acceptedGreen">#00FF00</color>
+    <color name="failure">#ff91b0</color>
+    <color name="success">#91ffa9</color>
+    <color name="darkMenu">#000000</color>
+    <color name="darkPrimary">#121212</color>
+    <color name="darkSecondary">#181818</color>
+    <color name="darkFade">#303030</color>
+    <color name="textPrimary">#FFFFFF</color>
+    <color name="textSecondary">#e3e3e3</color>
+    <color name="textFade">#a9a9a9</color>
+    <color name="primary">#FFA991</color>
+    <color name="complementary">#91e7ff</color>
+    <color name="info">#ffe091</color>
+    <color name="foregroundDetail">#faf4f1</color>
 
 </resources>

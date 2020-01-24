@@ -26,7 +26,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnCapture"
         android:layout_width="wrap_content"
@@ -34,8 +33,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
-        app:backgroundTint="@android:color/black"
         android:src="@drawable/ic_camera"
+        app:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -62,7 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            app:backgroundTint="@color/rejectedRed"
+            app:backgroundTint="@color/failure"
             android:src="@drawable/ic_close"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +74,7 @@
             android:layout_weight="0.5"
             android:layout_marginStart="20dp"
             android:src="@drawable/ic_check"
-            app:backgroundTint="@color/acceptedGreen"
+            app:backgroundTint="@color/success"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
