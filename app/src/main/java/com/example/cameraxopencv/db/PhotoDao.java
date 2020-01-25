@@ -13,18 +13,18 @@ import java.util.List;
 @Dao
 public interface PhotoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Photo photo);
+    void insert(DBPhoto photo);
 
     @Update
-    public void update(Photo photo);
+    public void update(DBPhoto photo);
 
     @Delete
-    public void delete(Photo photo);
+    public void delete(DBPhoto photo);
 
-    @Query("DELETE FROM photo")
+    @Query("DELETE FROM DBPhoto")
     public void deleteAll();
 
-    @Query("SELECT * FROM photo ORDER BY creationDate")
-    public LiveData<List<Photo>> findAll();
+    @Query("SELECT * FROM DBPhoto ORDER BY creationDate")
+    public LiveData<List<DBPhoto>> findAll();
 
 }

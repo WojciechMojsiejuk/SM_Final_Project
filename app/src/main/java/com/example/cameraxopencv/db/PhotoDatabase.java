@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Photo.class}, version = 1, exportSchema = false)
+@Database(entities = {DBPhoto.class}, version = 1, exportSchema = false)
 public abstract class PhotoDatabase extends RoomDatabase {
     public abstract PhotoDao photoDao();
 
@@ -45,7 +45,7 @@ public abstract class PhotoDatabase extends RoomDatabase {
                 PhotoDao dao = INSTANCE.photoDao();
                 dao.deleteAll();
 
-                Photo photo = new Photo("Filepath", new Date());
+                DBPhoto photo = new DBPhoto("Filepath", new Date());
                 dao.insert(photo);
             });
         }

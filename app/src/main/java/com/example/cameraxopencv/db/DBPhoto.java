@@ -6,14 +6,14 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 @Entity(tableName = "photo")
-public class Photo {
-    public Photo(String filepath, Date creationDate)
+public class DBPhoto{
+    public DBPhoto(String filepath, Date creationDate)
     {
         this.filepath = filepath;
         this.creationDate = creationDate;
     }
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private Integer id;
     private String filepath;
     private Date creationDate;
 
@@ -40,4 +40,5 @@ public class Photo {
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
+
 }

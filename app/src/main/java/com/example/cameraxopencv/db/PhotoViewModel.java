@@ -11,7 +11,7 @@ import java.util.List;
 public class PhotoViewModel extends AndroidViewModel {
     private PhotoRepository photoRepository;
 
-    private LiveData<List<Photo>> photos;
+    private LiveData<List<DBPhoto>> photos;
 
     public PhotoViewModel(@NonNull Application application)
     {
@@ -20,21 +20,21 @@ public class PhotoViewModel extends AndroidViewModel {
         photos = photoRepository.findAllPhotos();
     }
 
-    public LiveData<List<Photo>> findAll()
+    public LiveData<List<DBPhoto>> findAll()
     {
         return photos;
     }
 
-    public void insert(Photo photo)
+    public void insert(DBPhoto photo)
     {
         photoRepository.insert(photo);
     }
 
-    public void update(Photo photo)
+    public void update(DBPhoto photo)
     {
         photoRepository.update(photo);
     }
-    public void delete(Photo photo)
+    public void delete(DBPhoto photo)
     {
         photoRepository.delete(photo);
     }
