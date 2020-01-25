@@ -19,4 +19,8 @@
         android:id="@+id/lab"
         android:title="RGB to Lab"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/tumor_detection"
+        android:title="Tumor detection"
+        app:showAsAction="never" />
 </menu>
