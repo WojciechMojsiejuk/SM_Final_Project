@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background_img"></androidx.appcompat.widget.AppCompatImageView>
+        app:srcCompat="@drawable/background_img" />
 
 
 
@@ -66,7 +66,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Melanomapp"
+        android:text="MelanomApp"
         android:textColor="@color/textPrimary"
         android:textSize="@dimen/Header"
         app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"

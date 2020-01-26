@@ -44,6 +44,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             if (allPermissionsGranted()) {
                 init();
             } else {
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
@@ -175,9 +176,18 @@ public class MainActivity extends AppCompatActivity {
             {
                 date = new Date();
             }
+
+            // To future me: implement thread to analyze downloaded image
+
+            Random r = new Random();
+            int a = r.nextInt(3);
+            int b = r.nextInt(9);
+            int c = r.nextInt(6)+1;
+            int d = r.nextInt(6);
+
             Photo downloadPhoto = new Photo(filename,
                     date,
-                    0,0,0,0);
+                    a,b,c,d);
             photoViewModel.insert(downloadPhoto);
             Log.d("Download", "Added with Picasso");
             Log.d("Download", "File: " + downloadPhoto.getFilepath());

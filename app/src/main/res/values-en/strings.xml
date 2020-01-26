@@ -3,4 +3,27 @@
     <string name="app_name">Melanoma detection</string>
     <string name="photo_added">Photo added successfully</string>
     <string name="photo_not_saved">Photo was not added</string>
+    <string name="hairRemovalFilter">Hair Removal Filter</string>
+    <string name="detectWhite">Detect white color</string>
+    <string name="detectRed">Detect Red Color</string>
+    <string name="tumorDetection">Tumor Detection</string>
+    <string name="detectAssymetry">Detect Assymetry</string>
+    <string name="detectBlack">Detect Black</string>
+    <string name="detectBlueGray">Detect Blue Gray</string>
+    <string name="detectDarkBrown">Detect Dark Brown</string>
+    <string name="detectLightBrown">Detect Light Brown</string>
+    <string name="resetFilters">Reset Filters</string>
+    <string name="benign">Benign</string>
+    <string name="suspicious">Suspicious</string>
+    <string name="photo_error">Couldn\'t take a photo</string>
+    <string name="permission_denied">Permissions not granted by the user.</string>
+    <string name="not_computed">Not computed</string>
+    <string name="malignant">Malignant</string>
+    <string name="results">Results</string>
+    <string name="diagnosis">Diagnosis:</string>
+    <string name="analyze">Analyze</string>
+    <string name="a_score">A score:</string>
+    <string name="b_score">B score:</string>
+    <string name="c_score">C score:</string>
+    <string name="d_score">D score:</string>
 </resources>

@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Detekcja czerniaka</string>
-    <string name="photo_added">Photo added successfully</string>
-    <string name="photo_not_saved">Photo was not added</string>
+    <string name="photo_added">Zdjęcie dodano pomyślnie</string>
+    <string name="photo_not_saved">Zdjęcie nie zostało dodane</string>
+    <string name="hairRemovalFilter">Filtr usuwający owłosienie</string>
+    <string name="detectWhite">Wykryj biały kolor</string>
+    <string name="detectRed">Wykryj czerwony kolor</string>
+    <string name="tumorDetection">Tumor Detection</string>
+    <string name="detectAssymetry">Wykryj asymetrię</string>
+    <string name="detectBlack">Wykryj czarny kolor</string>
+    <string name="detectBlueGray">Wykryj niebieskoszary kolor</string>
+    <string name="detectDarkBrown">Wykryj ciemnobrązowy kolor</string>
+    <string name="detectLightBrown">Wykryj jasnobrazowy kolor</string>
+    <string name="resetFilters">Wyczyść filtry</string>
+    <string name="benign">Niegroźne</string>
+    <string name="suspicious">Podejrzane</string>
+    <string name="photo_error">Nie udało się zrobić zdjęcia</string>
+    <string name="permission_denied">Nieprzyznano uprawnień</string>
+    <string name="not_computed">Nie obliczono</string>
+    <string name="malignant">Groźne</string>
+    <string name="results">Wyniki</string>
+    <string name="diagnosis">Diagnoza:</string>
+    <string name="analyze">Analizuj</string>
+    <string name="d_score">Wynik D:</string>
+    <string name="c_score">Wynik C:</string>
+    <string name="b_score">Wynik B:</string>
+    <string name="a_score">Wynik A:</string>
 </resources>

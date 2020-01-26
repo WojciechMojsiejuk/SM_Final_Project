@@ -1,5 +1,6 @@
 package com.example.cameraxopencv;
 
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,13 +14,19 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+import org.tensorflow.lite.Interpreter;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOError;
+import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 
 public class ExaminationActivity extends AppCompatActivity {
+
+    Interpreter tflite;
 
     public static final String EXTRA_EXAM_PHOTO_FILEPATH = "EXTRA_EXAM_PHOTO_FILEPATH";
     public static final String EXTRA_EXAM_A_SCORE = "EXTRA_EXAM_A_SCORE";
@@ -42,9 +49,10 @@ public class ExaminationActivity extends AppCompatActivity {
     private int b_score;
     private int c_score;
     private int d_score;
-    private float tds;
+    private double tds;
     private String finalDiagnosis;
     private boolean showResults = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +68,16 @@ public class ExaminationActivity extends AppCompatActivity {
         TDS = findViewById(R.id.tds_score);
         NN = findViewById(R.id.nn_score);
         diagnosis = findViewById(R.id.diagnosis);
+
+        //load model file
+//
+//        try{
+//            tflite = new Interpreter(loadModelFile());
+//        }
+//        catch (Exception ex)
+//        {
+//            ex.printStackTrace();
+//        }
 
 
         if(getIntent().hasExtra(EXTRA_EXAM_PHOTO_FILEPATH)
@@ -157,6 +175,55 @@ public class ExaminationActivity extends AppCompatActivity {
                 }
             }
         });
+
+        final Button analyzer = findViewById(R.id.analyze);
+        analyzer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tds = 1.3*a_score + 0.1 * b_score + 0.5 * c_score + 0.5 * d_score;
+                TDS.setText(Double.toString(tds));
+
+                if(tds < 4.75){
+                    diagnosis.setText(R.string.benign);
+                }
+                else if (tds>5.45)
+                {
+                    diagnosis.setText(R.string.malignant);
+                }
+                else{
+                    diagnosis.setText(R.string.suspicious);
+                }
+
+
+                //TFLITE
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//
+//                            tflite.run(input,output);
+//                        } catch (final Exception e) {
+//                            //if they aren't found, throw an error!
+//                            throw new RuntimeException("Error initializing classifiers!", e);
+//                        }
+//                    }
+//                }).start();
+
+
+            }
+        });
+
     }
+
+    //TFLITE
+//    private MappedByteBuffer loadModelFile() throws IOException{
+//        AssetFileDescriptor fileDescriptor = this.getAssets().openFd("model.tflite");
+//        FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
+//        FileChannel fileChannel = inputStream.getChannel();
+//        long startOffset = fileDescriptor.getStartOffset();
+//        long declardeLength = fileDescriptor.getDeclaredLength();
+//        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declardeLength);
+//
+//    }
 
 }

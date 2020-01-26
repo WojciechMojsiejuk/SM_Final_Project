@@ -71,8 +71,17 @@ public class CameraActivity  extends AppCompatActivity implements View.OnClickLi
     ImageView ivBitmap;
     LinearLayout llBottom;
 
-    int currentImageType = Imgproc.COLOR_RGB2GRAY;
     boolean tumorDetectionFilter = false;
+    boolean hairRemovalFilter = false;
+    boolean skinColorChange = false;
+    boolean detectWhite = false;
+    boolean detectRed = false;
+    boolean detectLightBrown = false;
+    boolean detectDarkBrown = false;
+    boolean detectBlueGray = false;
+    boolean detectBlack = false;
+    boolean detectAssymetry = false;
+
 
     ImageCapture imageCapture;
     ImageAnalysis imageAnalysis;
@@ -235,7 +244,7 @@ public class CameraActivity  extends AppCompatActivity implements View.OnClickLi
                         Mat mat = new Mat();
                         Utils.bitmapToMat(bitmap, mat);
 
-
+                        Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2RGB);
 
                         //Implement filters here
 
@@ -264,9 +273,29 @@ public class CameraActivity  extends AppCompatActivity implements View.OnClickLi
                             Imgproc.drawContours(mat, contours, -1, color, 3);
 
                         }
-                        else
+                        else if(detectWhite)
                         {
-                            Imgproc.cvtColor(mat, mat, currentImageType);
+                            Core.inRange(mat, new Scalar(197, 188, 217), new Scalar(255, 255, 255), mat);
+                        }
+                        else if(detectRed)
+                        {
+                            Core.inRange(mat, new Scalar(118, 21, 17), new Scalar(255, 0, 0), mat);
+                        }
+                        else if(detectLightBrown)
+                        {
+                            Core.inRange(mat, new Scalar(163, 82, 16), new Scalar(179, 81, 2), mat);
+                        }
+                        else if(detectDarkBrown)
+                        {
+                            Core.inRange(mat, new Scalar(87, 26, 0), new Scalar(135, 44, 5), mat);
+                        }
+                        else if(detectBlueGray)
+                        {
+                            Core.inRange(mat, new Scalar(97, 97, 97), new Scalar(113, 108, 139), mat);
+                        }
+                        else if(detectBlack)
+                        {
+                            Core.inRange(mat, new Scalar(0, 0, 0), new Scalar(44, 31, 30), mat);
                         }
 
                         Utils.matToBitmap(mat, bitmap);
@@ -344,7 +373,7 @@ public class CameraActivity  extends AppCompatActivity implements View.OnClickLi
             if (allPermissionsGranted()) {
                 startCamera();
             } else {
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
@@ -371,29 +400,71 @@ public class CameraActivity  extends AppCompatActivity implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.black_white:
-                currentImageType = Imgproc.COLOR_RGB2GRAY;
+
+            case R.id.resetFilter:
+                resetMenuOptions();
                 startCamera();
                 return true;
 
-            case R.id.hsv:
-                currentImageType = Imgproc.COLOR_RGB2HSV;
+            case R.id.detectWhite:
+                resetMenuOptions();
+                detectWhite = true;
                 startCamera();
                 return true;
 
-            case R.id.lab:
-                currentImageType = Imgproc.COLOR_RGB2Lab;
+            case R.id.detectRed:
+                resetMenuOptions();
+                detectRed = true;
+                startCamera();
+                return true;
+
+            case R.id.detectLightBrown:
+                resetMenuOptions();
+                detectLightBrown = true;
+                startCamera();
+                return true;
+
+            case R.id.detectDarkBrown:
+                resetMenuOptions();
+                detectDarkBrown = true;
+                startCamera();
+                return true;
+
+            case R.id.detectBlueGray:
+                resetMenuOptions();
+                detectBlueGray = true;
+                startCamera();
+                return true;
+
+            case R.id.detectBlack:
+                resetMenuOptions();
+                detectBlack = true;
                 startCamera();
                 return true;
 
             case R.id.tumor_detection:
-                tumorDetectionFilter = !tumorDetectionFilter;
+                resetMenuOptions();
+                tumorDetectionFilter = true;
                 startCamera();
                 return true;
 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    void resetMenuOptions()
+    {
+        tumorDetectionFilter = false;
+        hairRemovalFilter = false;
+        skinColorChange = false;
+        detectWhite = false;
+        detectRed = false;
+        detectLightBrown = false;
+        detectDarkBrown = false;
+        detectBlueGray = false;
+        detectBlack = false;
+        detectAssymetry = false;
     }
 
     @Override
@@ -406,19 +477,33 @@ public class CameraActivity  extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.btnAccept:
-                String filename = "" + System.currentTimeMillis() + "_JDCameraX.jpg";
+                String filename = "" + System.currentTimeMillis() + "_JDCameraX.jpeg";
+                String folderName = "Melanoma";
+                File dir = new File (Environment.getExternalStorageDirectory(), folderName);
+                if (!dir.exists())
+                {
+                    boolean success = dir.mkdirs();
+                    if(success)
+                    {
+                        Log.d("Melanoma folder", "folder created successfully");
+                    }
+                    else
+                    {
+                        Log.e("Melanoma folder", "folder creation failed");
+                    }
+                }
                 File file = new File(
-                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), filename);
+                        dir.getAbsolutePath(), filename);
                 imageCapture.takePicture(file, new ImageCapture.OnImageSavedListener() {
                     @Override
                     public void onImageSaved(@NonNull File file) {
                         showAcceptedRejectedButton(false);
                         replyIntent.putExtra(EXTRA_PHOTO_FILENAME, filename);
                         replyIntent.putExtra(EXTRA_PHOTO_TIME, new Date());
-                        replyIntent.putExtra(EXTRA_PHOTO_A_SCORE, a_score);
-                        replyIntent.putExtra(EXTRA_PHOTO_B_SCORE, b_score);
-                        replyIntent.putExtra(EXTRA_PHOTO_C_SCORE, c_score);
-                        replyIntent.putExtra(EXTRA_PHOTO_D_SCORE, d_score);
+                        replyIntent.putExtra(EXTRA_PHOTO_A_SCORE, Integer.toString(a_score));
+                        replyIntent.putExtra(EXTRA_PHOTO_B_SCORE, Integer.toString(b_score));
+                        replyIntent.putExtra(EXTRA_PHOTO_C_SCORE, Integer.toString(c_score));
+                        replyIntent.putExtra(EXTRA_PHOTO_D_SCORE, Integer.toString(d_score));
 
                         setResult(RESULT_OK, replyIntent);
                         finish();
@@ -426,7 +511,7 @@ public class CameraActivity  extends AppCompatActivity implements View.OnClickLi
 
                     @Override
                     public void onError(@NonNull ImageCapture.UseCaseError useCaseError, @NonNull String message, @Nullable Throwable cause) {
-                        Toast.makeText(getApplicationContext(), "Couldn't take a photo", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), R.string.photo_error, Toast.LENGTH_LONG).show();
                     }
                 });
                 break;

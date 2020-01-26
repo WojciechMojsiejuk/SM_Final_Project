@@ -5,22 +5,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
+
     <item
-        android:id="@+id/black_white"
-        android:title="RGB to Gray"
+        android:id="@+id/resetFilter"
+        android:title="@string/resetFilters"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/hsv"
-        android:title="RGB to HSV"
+        android:id="@+id/hairRemovalFilter"
+        android:title="@string/hairRemovalFilter"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/lab"
-        android:title="RGB to Lab"
+        android:id="@+id/detectWhite"
+        android:title="@string/detectWhite"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/detectRed"
+        android:title="@string/detectRed"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/detectLightBrown"
+        android:title="@string/detectLightBrown"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/detectDarkBrown"
+        android:title="@string/detectDarkBrown"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/detectBlueGray"
+        android:title="@string/detectBlueGray"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/detectBlack"
+        android:title="@string/detectBlack"
         app:showAsAction="never" />
     <item
         android:id="@+id/tumor_detection"
-        android:title="Tumor detection"
+        android:title="@string/tumorDetection"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/detectAssymetry"
+        android:title="@string/detectAssymetry"
         app:showAsAction="never" />
 </menu>
