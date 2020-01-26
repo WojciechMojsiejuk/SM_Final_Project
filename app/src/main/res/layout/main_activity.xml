@@ -36,13 +36,31 @@
             app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:src="@drawable/ic_add_a_photo"
         app:layout_constraintBottom_toBottomOf="@id/appCompatImageView"
         app:layout_constraintRight_toRightOf="@id/appCompatImageView"
-        app:layout_constraintTop_toTopOf="parent"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+        app:backgroundTint="@color/darkFade"
+        android:tint="@color/primary"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/download_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/darkFade"
+        android:src="@drawable/ic_download"
+        android:tint="@color/complementary"
+        app:backgroundTint="@color/darkFade"
+        app:layout_constraintBottom_toBottomOf="@id/appCompatImageView"
+        app:layout_constraintLeft_toLeftOf="@id/appCompatImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/darkFade" />
 
     <TextView
         android:id="@+id/textView"

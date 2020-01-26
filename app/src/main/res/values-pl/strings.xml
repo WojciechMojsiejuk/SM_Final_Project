@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Detekcja czerniaka</string>
+    <string name="photo_added">Photo added successfully</string>
+    <string name="photo_not_saved">Photo was not added</string>
 </resources>

@@ -41,15 +41,18 @@ public class ExampleActivity extends AppCompatActivity {
     private void fetchData() {
         ISICPhotoService isicPhotoService = RetrofitInstance.getRetrofitInstance().create(ISICPhotoService.class);
 
-        Call<ISICPhotoContainer> isicPhotoContainerCall = isicPhotoService.getPhotos("5");
-        isicPhotoContainerCall.enqueue(new Callback<ISICPhotoContainer>() {
+        Call<List<ISICPhoto>> isicPhotoCall = isicPhotoService.getPhotos("5", "20");
+        isicPhotoCall.enqueue(new Callback<List<ISICPhoto>>() {
             @Override
-            public void onResponse(Call<ISICPhotoContainer> call, Response<ISICPhotoContainer> response) {
-                setupPhotoListView(response.body().getIsicPhotoList());
+            public void onResponse(Call<List<ISICPhoto>> call, Response<List<ISICPhoto>> response) {
+                for(ISICPhoto photo:response.body()){
+                    String id = photo.getId();
+                    Log.d("ISIC","Photo: "+id);
+                }
             }
 
             @Override
-            public void onFailure(Call<ISICPhotoContainer> call, Throwable t) {
+            public void onFailure(Call<List<ISICPhoto>> call, Throwable t) {
                 Snackbar.make(findViewById(R.id.main_view),"Something went wrong... Please try later!", Snackbar.LENGTH_LONG).show();
             }
         });
@@ -107,7 +110,7 @@ public class ExampleActivity extends AppCompatActivity {
         }
 
         public void bind(ISICPhoto isicPhoto) {
-            if(isicPhoto != null && isicPhoto.getCreationDate() != null){
+            if(isicPhoto != null && isicPhoto.getId() != null && isicPhoto.getCreationDate() != null){
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
                 creationDateTextView.setText(dateFormat.format(isicPhoto.getCreationDate()));
                 if(isicPhoto.getId() != null){

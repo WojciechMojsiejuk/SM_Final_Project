@@ -20,6 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CameraActivity"></activity>
+        <activity android:name=".ExampleActivity"></activity>
+        <activity android:name=".ExaminationActivity"></activity>
     </application>
 
 </manifest>

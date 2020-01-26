@@ -1,5 +1,6 @@
 package com.example.cameraxopencv;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -47,11 +48,25 @@ import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class CameraActivity  extends AppCompatActivity implements View.OnClickListener {
     private int REQUEST_CODE_PERMISSIONS = 101;
-    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
+    public static final String EXTRA_PHOTO_FILENAME = "EXTRA_PHOTO_FILENAME";
+    public static final String EXTRA_PHOTO_TIME = "EXTRA_PHOTO_TIME";
+    public static final String EXTRA_PHOTO_A_SCORE = "EXTRA_PHOTO_A_SCORE";
+    public static final String EXTRA_PHOTO_B_SCORE = "EXTRA_PHOTO_B_SCORE";
+    public static final String EXTRA_PHOTO_C_SCORE = "EXTRA_PHOTO_C_SCORE";
+    public static final String EXTRA_PHOTO_D_SCORE = "EXTRA_PHOTO_D_SCORE";
+
+    private int a_score;
+    private int b_score;
+    private int c_score;
+    private int d_score;
+
+    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE", "android.permission.INTERNET"};
     TextureView textureView;
     ImageView ivBitmap;
     LinearLayout llBottom;
@@ -77,6 +92,12 @@ public class CameraActivity  extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_activity);
+
+        Random r = new Random();
+        this.a_score = r.nextInt(3);
+        this.b_score = r.nextInt(9);
+        this.c_score = r.nextInt(6)+1;
+        this.d_score = r.nextInt(6);
 
 
         btnCapture = findViewById(R.id.btnCapture);
@@ -364,6 +385,7 @@ public class CameraActivity  extends AppCompatActivity implements View.OnClickLi
                 currentImageType = Imgproc.COLOR_RGB2Lab;
                 startCamera();
                 return true;
+
             case R.id.tumor_detection:
                 tumorDetectionFilter = !tumorDetectionFilter;
                 startCamera();
@@ -376,25 +398,35 @@ public class CameraActivity  extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        Intent replyIntent = new Intent();
         switch (v.getId()) {
             case R.id.btnReject:
                 showAcceptedRejectedButton(false);
+                setResult(RESULT_CANCELED, replyIntent);
                 break;
 
             case R.id.btnAccept:
+                String filename = "" + System.currentTimeMillis() + "_JDCameraX.jpg";
                 File file = new File(
-                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "" + System.currentTimeMillis() + "_JDCameraX.jpg");
+                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), filename);
                 imageCapture.takePicture(file, new ImageCapture.OnImageSavedListener() {
                     @Override
                     public void onImageSaved(@NonNull File file) {
                         showAcceptedRejectedButton(false);
+                        replyIntent.putExtra(EXTRA_PHOTO_FILENAME, filename);
+                        replyIntent.putExtra(EXTRA_PHOTO_TIME, new Date());
+                        replyIntent.putExtra(EXTRA_PHOTO_A_SCORE, a_score);
+                        replyIntent.putExtra(EXTRA_PHOTO_B_SCORE, b_score);
+                        replyIntent.putExtra(EXTRA_PHOTO_C_SCORE, c_score);
+                        replyIntent.putExtra(EXTRA_PHOTO_D_SCORE, d_score);
 
-                        Toast.makeText(getApplicationContext(), "Image saved successfully in Pictures Folder", Toast.LENGTH_LONG).show();
+                        setResult(RESULT_OK, replyIntent);
+                        finish();
                     }
 
                     @Override
                     public void onError(@NonNull ImageCapture.UseCaseError useCaseError, @NonNull String message, @Nullable Throwable cause) {
-
+                        Toast.makeText(getApplicationContext(), "Couldn't take a photo", Toast.LENGTH_LONG).show();
                     }
                 });
                 break;

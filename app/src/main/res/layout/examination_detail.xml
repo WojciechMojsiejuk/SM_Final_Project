@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/detail_view">
+
+    <androidx.cardview.widget.CardView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:animationCache="false"
+        android:theme="@style/AppTheme"
+        app:cardBackgroundColor="@color/darkSecondary"
+        app:cardCornerRadius="30dp"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/examinationPhoto"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toTopOf="@id/backgroundImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.appcompat.widget.AppCompatImageView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/resultsView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/backgroundImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:backgroundTint="@color/darkFade"
+                android:visibility="gone"
+                >
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center"
+                    >
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="A score:"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/textSecondary"
+                                android:textStyle="bold"
+                                />
+
+                            <TextView
+                                android:paddingLeft="20dp"
+                                android:id="@+id/a_score"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/not_computed"
+                                android:textColor="@color/textFade"></TextView>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="B score:"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/textSecondary"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:paddingLeft="20dp"
+                            android:id="@+id/b_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/not_computed"
+                            android:textColor="@color/textFade"></TextView>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="C score:"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/textSecondary"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:paddingLeft="20dp"
+                            android:id="@+id/c_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/not_computed"
+                            android:textColor="@color/textFade"></TextView>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:id="@+id/d_score_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="D score:"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/textSecondary"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:paddingLeft="20dp"
+                            android:id="@+id/d_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/not_computed"
+                            android:textColor="@color/textFade"></TextView>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TDS:"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/textSecondary"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:paddingLeft="20dp"
+                            android:id="@+id/tds_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/not_computed"
+                            android:textColor="@color/textFade"></TextView>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NN:"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/textSecondary"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:paddingLeft="20dp"
+                            android:id="@+id/nn_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/not_computed"
+                            android:textColor="@color/textFade"></TextView>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Diagnosis:"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/textSecondary"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:paddingLeft="20dp"
+                            android:id="@+id/diagnosis"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/not_computed"
+                            android:textColor="@color/textFade"></TextView>
+                    </TableRow>
+                </TableLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/backgroundImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/background_img"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/background_img"></androidx.appcompat.widget.AppCompatImageView>
+
+
+            <Button
+                android:id="@+id/results"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/darkFade"
+                android:drawableLeft="@drawable/ic_result"
+                android:drawableTint="@color/info"
+                android:elevation="12dp"
+                android:text="Results"
+                android:textColor="@color/textSecondary"
+                app:layout_constraintBottom_toBottomOf="@id/backgroundImage"
+                app:layout_constraintEnd_toStartOf="@id/analyze"
+                app:layout_constraintStart_toStartOf="@id/backgroundImage"
+                app:layout_constraintTop_toTopOf="@id/backgroundImage" />
+
+            <Button
+                android:id="@+id/analyze"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/darkFade"
+                android:drawableLeft="@drawable/ic_analyze"
+                android:drawableTint="@color/complementary"
+                android:elevation="12dp"
+                android:text="Analyze"
+                android:textColor="@color/textSecondary"
+                app:layout_constraintBottom_toBottomOf="@id/backgroundImage"
+                app:layout_constraintEnd_toEndOf="@id/backgroundImage"
+                app:layout_constraintStart_toEndOf="@id/results"
+                app:layout_constraintTop_toTopOf="@id/backgroundImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

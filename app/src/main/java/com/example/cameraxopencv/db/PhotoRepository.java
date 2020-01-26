@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PhotoRepository {
     private PhotoDao photoDao;
-    private LiveData<List<DBPhoto>> photos;
+    private LiveData<List<Photo>> photos;
 
     PhotoRepository(Application application)
     {
@@ -17,24 +17,24 @@ public class PhotoRepository {
         photos = photoDao.findAll();
     }
 
-    LiveData<List<DBPhoto>> findAllPhotos()
+    LiveData<List<Photo>> findAllPhotos()
     {
         return photos;
     }
 
-    void insert(DBPhoto photo)
+    void insert(Photo photo)
     {
        PhotoDatabase.databaseWriteExecutor.execute(() -> {
             photoDao.insert(photo);});
     }
 
-    void update(DBPhoto photo)
+    void update(Photo photo)
     {
         PhotoDatabase.databaseWriteExecutor.execute(() -> {
             photoDao.update(photo);});
     }
 
-    void delete(DBPhoto photo)
+    void delete(Photo photo)
     {
         PhotoDatabase.databaseWriteExecutor.execute(() -> {
             photoDao.delete(photo);});

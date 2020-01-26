@@ -6,13 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {DBPhoto.class}, version = 1, exportSchema = false)
+@Database(entities = {Photo.class}, version = 4, exportSchema = false)
+@TypeConverters({DateConverter.class})
 public abstract class PhotoDatabase extends RoomDatabase {
     public abstract PhotoDao photoDao();
 
@@ -28,7 +30,9 @@ public abstract class PhotoDatabase extends RoomDatabase {
             {
                 if (INSTANCE == null)
                 {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), PhotoDatabase.class, "photo_db").addCallback(sRoomDatabaseCallback)
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            PhotoDatabase.class,
+                            "photo_db").fallbackToDestructiveMigration().addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
@@ -44,8 +48,8 @@ public abstract class PhotoDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(()-> {
                 PhotoDao dao = INSTANCE.photoDao();
                 dao.deleteAll();
-
-                DBPhoto photo = new DBPhoto("Filepath", new Date());
+//                java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
+                Photo photo = new Photo("Filepath", new Date(), 0, 0, 0, 0);
                 dao.insert(photo);
             });
         }
